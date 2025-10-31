@@ -5,44 +5,39 @@ import java.util.List;
 
 public class Hint {
     private Target target;
-    private List<List<HintDto>> hints;
+    private List<HintDto> hint;
 
-    public Hint(Target target) {
+    public Hint(Target target, Guess guess) {
         this.target = target;
-        hints = new ArrayList<>();
+        hint = new ArrayList<>();
+        validate(guess);
     }
 
-    public List<List<HintDto>> validateGuess (Guess guess) {
-
-        List<HintDto> results = new ArrayList<>();
-
-        for (int i = 0;  i < guess.length(); i++) {
+    private void validate(Guess guess) {
+         for (int i = 0;  i < guess.length(); i++) {
             char guessChar = guess.charAt(i);
             char targetChar = target.charAt(i);
 
-            Validation val;
+            Eval eval;
 
             if (guessChar == targetChar)
-                val = Validation.CORRECT;
+                eval = Eval.CORRECT;
             else if (target.contains(guessChar))
-                val = Validation.PRESENT;
+                eval = Eval.PRESENT;
             else
-                val = Validation.INCORRECT;
+                eval = Eval.INCORRECT;
 
-            results.add(new HintDto(guessChar, val));
+            hint.add(new HintDto(guessChar, eval));
         }
-
-        hints.add(results);
-        return hints;
     }
 
-    public List<HintDto> forGuessIndex(int forGuess) {
-        if  (forGuess < 1 || forGuess > hints.size())
-            throw new IllegalArgumentException("Guess index must be between 1 and " + hints.size());
-        return hints.subList(forGuess-1, forGuess).getFirst();
-    }
+//    public List<HintDto> forGuessIndex(int forGuess) {
+//        if  (forGuess < 1 || forGuess > hints.size())
+//            throw new IllegalArgumentException("Guess index must be between 1 and " + hints.size());
+//        return hints.subList(forGuess-1, forGuess).getFirst();
+//    }
 
-    public List<List<HintDto>> getHints() {
-        return hints;
+    public List<HintDto> getHint() {
+        return hint;
     }
 }

@@ -1,6 +1,6 @@
 package org.jono;
 
-public enum Validation {
+public enum Eval {
     CORRECT,
     PRESENT,
     INCORRECT
