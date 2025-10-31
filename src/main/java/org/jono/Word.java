@@ -5,8 +5,6 @@ import java.util.stream.IntStream;
 public class Word implements CharSequence {
     private String value;
 
-    public Word() {};
-
     public Word(String text) {
         if (!text.matches("[A-Za-z]{5}"))
             throw new IllegalArgumentException("Word must contain 5 alphabetical characters only");

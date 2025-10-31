@@ -31,12 +31,6 @@ public class Hint {
         }
     }
 
-//    public List<HintDto> forGuessIndex(int forGuess) {
-//        if  (forGuess < 1 || forGuess > hints.size())
-//            throw new IllegalArgumentException("Guess index must be between 1 and " + hints.size());
-//        return hints.subList(forGuess-1, forGuess).getFirst();
-//    }
-
     public List<HintDto> getHint() {
         return hint;
     }
