@@ -1,48 +1,43 @@
-# Word
+# Word Guess Game
 
-A small Java 22 project that explores the mechanics behind a Wordle-style word guessing game.  
-The `Game` class selects a hidden five-letter word from a dictionary and evaluates each guess, returning per-letter hints that mark letters as correct (right letter, right place), present (right letter, wrong place), or incorrect.
+Compact Java 22/Maven project that implements the core mechanics of a Wordle-style guessing game. A secret target word is drawn from a five-letter dictionary, players make guesses, and each guess earns a per-letter hint indicating whether letters are correct, present elsewhere, or absent.
 
-## Requirements
-- Java 22 or later
-- Maven 3.9 or later
+- **Language/Build:** Java 22, Maven
+- **Key Types:** `Game`, `Guess`, `Target`, `Hint`, `WordsFromFile`
+- **Dictionary:** Plain-text list of five-letter words (`src/main/resources/words.txt`)
 
-## Build
+## Features
+- Enforces five-letter alpha-only words through the shared `Word` base class.
+- Provides repeatable hint evaluation via `Hint` + `HintDto` using `Eval` (`CORRECT`, `PRESENT`, `INCORRECT`).
+- Supplies a file-backed dictionary implementation (`WordsFromFile`) with duplicate filtering and basic validation.
+- Includes JUnit 5 test coverage for dictionary loading, hint generation, targets, and overall game flow.
+
+## Getting Started
+### Prerequisites
+- Java Development Kit (JDK) 22 or newer
+- Apache Maven 3.9+ (comes bundled with most modern JDK distributions or install separately)
+
+### Build & Run
 ```bash
-mvn package
+mvn clean compile
+mvn exec:java -Dexec.mainClass=org.jono.Main
 ```
+`Main` demonstrates a hard-coded playthrough: it loads the dictionary, shows the masked target, submits a couple of guesses, then prints the hint history.
 
-## Run
-The sample entry point in `org.jono.Main` plays two hard-coded guesses and prints the target word and the hint trail. Run it from the project root so the relative path to `src/main/resources/words.txt` resolves correctly:
-
+### Run Tests
 ```bash
-java -cp target/guess-1.0-SNAPSHOT.jar org.jono.Main
+mvn test
 ```
-
-Sample output (target word varies each run):
-
-```
-target: melon
-[HintDto[letter=a, result=INCORRECT], HintDto[letter=p, result=PRESENT], HintDto[letter=p, result=INCORRECT], HintDto[letter=l, result=PRESENT], HintDto[letter=e, result=PRESENT]]
-[HintDto[letter=m, result=CORRECT], HintDto[letter=e, result=CORRECT], HintDto[letter=l, result=CORRECT], HintDto[letter=o, result=CORRECT], HintDto[letter=n, result=CORRECT]]
-```
+The suite exercises the dictionary loader, hint generation logic, and overall game state management.
 
 ## Project Layout
-- `src/main/java/org/jono/`  
-  Core game types:
-  - `Game` orchestrates guesses and hint generation.
-  - `Word`, `Guess`, and `Target` model immutable five-letter words.
-  - `Hint` and `HintDto` compute per-character evaluations using `Eval`.
-  - `Dictionary` abstracts word sources; `WordsFromFile` reads from a file.
-- `src/main/resources/words.txt`  
-  Default list of candidate target words, one per line.
-- `pom.xml`  
-  Minimal Maven descriptor targeting Java 22.
+- `src/main/java/org/jono/` – game logic (`Game`, `Hint`, etc.) and dictionary implementation.
+- `src/main/resources/words.txt` – default dictionary; replace or expand with any uppercase/lowercase five-letter words (one per line).
+- `src/test/java/org/jono/` – JUnit tests covering core behavior.
 
-## Customising
-- Replace or extend `src/main/resources/words.txt` with your own five-letter words.
-- Wire in another `Dictionary` implementation (e.g., database, API) by passing it to `Game`.
-- Build a user interface or CLI loop around `Game.submitGuess` to turn this into a playable experience.
+### Extending
+- Swap in additional `Dictionary` implementations (e.g., API-backed) by implementing the interface and injecting it into `Game`.
+- Wrap `Game` in a CLI or GUI by iterating over guesses and converting `HintDto` results into your preferred UI.
 
-## Other
-This README was generated with Codex.
+---
+_README written using Codex (GPT-5)._ 

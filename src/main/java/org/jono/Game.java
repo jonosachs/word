@@ -22,15 +22,21 @@ public class Game {
     }
 
     public String getTarget() {
-        return target.toString();
+        return target.getValue();
     }
 
-    public List<Hint> getHints() {
+    public List<Hint> getHintsHistory() {
         return List.copyOf(hints);
+    }
+
+    public List<HintDto> getHintByIndex(int wordIndex) {
+        if (wordIndex > hints.size() || wordIndex < 0)
+            throw new IllegalArgumentException("Invalid word index");
+
+        return List.copyOf(hints.get(wordIndex).getWordHint());
     }
 
     public List<Guess> getGuesses() {
         return List.copyOf(guesses);
     }
-
 }
