@@ -7,6 +7,7 @@ public class Game {
     private final Target target;
     private final List<Guess> guesses;
     private final List<Hint> hints;
+    private int maxGuesses = 5;
 
     public Game (Dictionary dict) {
         this.target = new Target(dict.getRandomWord());
@@ -17,6 +18,10 @@ public class Game {
     public void submitGuess(String word) {
         Guess guess = new Guess(word);
         Hint hint = new Hint(target, guess);
+        if (guesses.size() >= maxGuesses)
+            throw new IllegalStateException("Max guesses {" + maxGuesses + "} exceeded");
+
+
         guesses.add(guess);
         hints.add(hint);
     }

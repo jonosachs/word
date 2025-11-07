@@ -1,6 +1,7 @@
 package org.jono;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +15,21 @@ public class Hint {
         this.target = target;
         this.guess = guess;
         this.wordHint = new ArrayList<>();
-        this.charsRemaining = target.getNumOfChars();
+        this.charsRemaining = getTargetCharFrequencies();
         evaluateGuess();
+    }
+
+    private Map<Character, Integer> getTargetCharFrequencies() {
+        var frequencies = new HashMap<Character, Integer>();
+
+        for  (int i = 0; i < target.length(); i++) {
+            var letter = target.charAt(i);
+            frequencies.merge(letter, 1, Integer::sum);
+        }
+        if (frequencies.isEmpty())
+            throw new IllegalStateException("Error getting char frequency for target");
+
+        return frequencies;
     }
 
     private void evaluateGuess() {

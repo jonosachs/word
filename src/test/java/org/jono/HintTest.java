@@ -35,4 +35,5 @@ class HintTest {
         );
         assertEquals(expected, new Hint(target, guess).getWordHint());
     }
+
 }

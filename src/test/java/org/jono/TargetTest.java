@@ -14,7 +14,7 @@ class TargetTest {
     }
 
     @Test
-    void cannotGetTarget() {
+    void targetIsMasked() {
         var pattern = "[a-zA-Z]";
         assertFalse(target.getValue().matches(pattern));
         assertFalse(target.toString().matches(pattern));

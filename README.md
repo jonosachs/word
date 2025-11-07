@@ -1,43 +1,50 @@
-# Word Guess Game
+## Word Guessing Playground
 
-Compact Java 22/Maven project that implements the core mechanics of a Wordle-style guessing game. A secret target word is drawn from a five-letter dictionary, players make guesses, and each guess earns a per-letter hint indicating whether letters are correct, present elsewhere, or absent.
+This project is a tiny Wordle-style playground I wrote mainly to experiment with encapsulation. Every concept in the game—dictionary access, the hidden target word, guesses, and hint evaluation—is wrapped in its own type so I could practice keeping responsibilities separated and data guarded behind clear APIs. The result is a lightweight core that can be driven from a CLI (see `ExampleMain`) or tested in isolation.
 
-- **Language/Build:** Java 22, Maven
-- **Key Types:** `Game`, `Guess`, `Target`, `Hint`, `WordsFromFile`
-- **Dictionary:** Plain-text list of five-letter words (`src/main/resources/words.txt`)
+### Highlights
+- **Encapsulated domain objects** – `Word` is the sealed base type, while `Guess` and `Target` specialize behavior (e.g., `Target` masks its value externally).
+- **Isolated hint logic** – `Hint` consumes `Target` + `Guess` and produces immutable `HintDto` records with `Eval` results (`CORRECT`, `PRESENT`, `INCORRECT`), mirroring Wordle feedback.
+- **Dictionary abstraction** – `Dictionary` powers the game; `WordsFromFile` is the current implementation that validates five-letter words from a file before exposing a random target.
+- **Testable design** – Core behaviors are covered with JUnit/Mockito tests under `src/test/java/org/jono`, keeping experiments safe.
 
-## Features
-- Enforces five-letter alpha-only words through the shared `Word` base class.
-- Provides repeatable hint evaluation via `Hint` + `HintDto` using `Eval` (`CORRECT`, `PRESENT`, `INCORRECT`).
-- Supplies a file-backed dictionary implementation (`WordsFromFile`) with duplicate filtering and basic validation.
-- Includes JUnit 5 test coverage for dictionary loading, hint generation, targets, and overall game flow.
-
-## Getting Started
-### Prerequisites
-- Java Development Kit (JDK) 22 or newer
-- Apache Maven 3.9+ (comes bundled with most modern JDK distributions or install separately)
-
-### Build & Run
-```bash
-mvn clean compile
-mvn exec:java -Dexec.mainClass=org.jono.Main
+### Project Layout
 ```
-`Main` demonstrates a hard-coded playthrough: it loads the dictionary, shows the masked target, submits a couple of guesses, then prints the hint history.
+src/
+  main/
+    java/org/jono/   # Game, Word hierarchy, hint logic, CLI example
+    resources/       # Sample dictionary (words.txt)
+  test/java/org/jono # Unit tests for core types
+pom.xml              # Maven config (Java 22, JUnit 5)
+```
 
-### Run Tests
+### Run It
+1. Build:
+   ```bash
+   mvn clean package
+   ```
+2. Use the demo entry point (after packaging, replace `app.jar` with your artifact name):
+   ```bash
+   java -cp target/guess-1.0-SNAPSHOT.jar org.jono.ExampleMain \
+     --dict src/main/resources/words.txt \
+     --guesses apple,melon
+   ```
+   Arguments:
+   - `--dict/-d`: path to a newline-delimited list of five-letter words.
+   - `--guesses/-g`: comma-separated guesses (up to five per game).
+   - `--help/-h`: usage info.
+
+`Main` is intentionally empty so I can wire the game into other front-ends later (CLI, GUI, or tests) without changing the core logic.
+
+### Testing
 ```bash
 mvn test
 ```
-The suite exercises the dictionary loader, hint generation logic, and overall game state management.
+The suite covers dictionary loading, guess validation, hint evaluation, and the game controller to ensure the encapsulated components keep behaving as expected while I iterate.
 
-## Project Layout
-- `src/main/java/org/jono/` – game logic (`Game`, `Hint`, etc.) and dictionary implementation.
-- `src/main/resources/words.txt` – default dictionary; replace or expand with any uppercase/lowercase five-letter words (one per line).
-- `src/test/java/org/jono/` – JUnit tests covering core behavior.
+### Next Ideas
+1. Add a proper CLI/GUI front-end.
+2. Support dependency injection for dictionary sources (e.g., remote APIs).
+3. Track win/loss stats or persist completed games for later analysis.
 
-### Extending
-- Swap in additional `Dictionary` implementations (e.g., API-backed) by implementing the interface and injecting it into `Game`.
-- Wrap `Game` in a CLI or GUI by iterating over guesses and converting `HintDto` results into your preferred UI.
-
----
-_README written using Codex (GPT-5)._ 
+*README written using Codex.
