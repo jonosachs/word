@@ -1,6 +1,7 @@
 package org.jono;
 
 
+// Minimal CLI harness to exercise the encapsulated game objects.
 public class ExampleMain {
     public static void main(String[] args) {
         String dictPath = null;

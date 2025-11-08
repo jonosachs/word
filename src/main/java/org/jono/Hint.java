@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// Evaluates a guess against the target and stores immutable feedback.
 public class Hint {
     private final Target target;
     private final Guess guess;
@@ -19,6 +20,7 @@ public class Hint {
         evaluateGuess();
     }
 
+    // Snapshot how many of each letter are still unaccounted for.
     private Map<Character, Integer> getTargetCharFrequencies() {
         var frequencies = new HashMap<Character, Integer>();
 
@@ -32,6 +34,7 @@ public class Hint {
         return frequencies;
     }
 
+    // Two-pass-in-one loop: treat CORRECT hits first, otherwise decide PRESENT/INCORRECT
     private void evaluateGuess() {
          for (int i = 0;  i < guess.length(); i++) {
             char guessChar = guess.charAt(i);
@@ -53,6 +56,7 @@ public class Hint {
         }
     }
 
+    // Guard against double-counting duplicate letters.
     private void decrementChar(char c) {
         int remaining = charsRemaining.get(c);
         if (remaining > 0) charsRemaining.put(c, remaining - 1);

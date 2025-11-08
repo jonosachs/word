@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Random;
 
+// Simple dictionary backed by a newline-delimited resource.
 public class WordsFromFile implements Dictionary {
     private final List<String> dict;
     private final Random random;

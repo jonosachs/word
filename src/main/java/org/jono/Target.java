@@ -1,5 +1,6 @@
 package org.jono;
 
+// Target hides its true value by exposing a constant mask externally.
 public class Target extends Word {
     private final String mask = "*".repeat(super.length());
 

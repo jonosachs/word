@@ -3,6 +3,7 @@ package org.jono;
 import java.util.ArrayList;
 import java.util.List;
 
+// Orchestrates target selection, guesses, and hint history.
 public class Game {
     private final Target target;
     private final List<Guess> guesses;
