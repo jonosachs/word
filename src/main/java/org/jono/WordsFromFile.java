@@ -8,20 +8,35 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Random;
 
-// Simple dictionary backed by a newline-delimited resource.
+/**
+ * Dictionary backed by a newline-delimited text resource containing five-letter words.
+ */
 public class WordsFromFile implements Dictionary {
     private final List<String> dict;
     private final Random random;
 
+    /**
+     * Creates a dictionary from a string path.
+     *
+     * @param filePath path to the dictionary file
+     */
     public WordsFromFile(String filePath) {
         this(Path.of(filePath));
     }
 
+    /**
+     * Creates a dictionary from a {@link Path} to a newline-delimited file.
+     *
+     * @param filePath path to the dictionary file
+     */
     public WordsFromFile(Path filePath) {
         this.dict = loadDictionary(filePath);
         this.random = new Random();
     }
 
+    /**
+     * Reads, sanitizes, and validates the dictionary contents.
+     */
     private List<String> loadDictionary(Path filePath) {
         final List<String> words;
         try {
@@ -44,10 +59,18 @@ public class WordsFromFile implements Dictionary {
         return List.copyOf(words);
     }
 
+    /**
+     * Exposes the immutable backing list for callers that need to inspect the dictionary.
+     *
+     * @return all valid five-letter words
+     */
     public List<String> getDict() {
         return dict;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getRandomWord() {
         var randomIndex = random.nextInt(dict.size());

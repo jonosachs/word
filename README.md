@@ -42,6 +42,13 @@ mvn test
 ```
 The suite covers dictionary loading, guess validation, hint evaluation, and the game controller to ensure the encapsulated components keep behaving as expected while I iterate.
 
+### Javadocs
+Generate API docs with:
+```bash
+mvn javadoc:javadoc
+```
+Open `target/site/apidocs/index.html` in any browser to browse the rendered documentation.
+
 ### Next Ideas
 1. Add a proper CLI/GUI front-end.
 2. Support dependency injection for dictionary sources (e.g., remote APIs).

@@ -18,6 +18,7 @@ target/
 target/
 build/
 .gradle/
+.mvn/
 
 ### Eclipse ###
 .apt_generated

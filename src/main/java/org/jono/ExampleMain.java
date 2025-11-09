@@ -1,8 +1,16 @@
 package org.jono;
 
 
-// Minimal CLI harness to exercise the encapsulated game objects.
+/**
+ * Minimal CLI harness to exercise {@link Game}, primarily for manual verification via a dictionary
+ * file and a fixed sequence of guesses.
+ */
 public class ExampleMain {
+    /**
+     * Parses CLI arguments, feeds the guesses into the {@link Game}, and prints the resulting state.
+     *
+     * @param args command-line options, see {@link #printHelp()} for details
+     */
     public static void main(String[] args) {
         String dictPath = null;
         String guesses = null;
@@ -41,6 +49,9 @@ public class ExampleMain {
         }
     };
 
+    /**
+     * Prints CLI usage information.
+     */
     private static void printHelp() {
         System.out.println("""
                 Usage:

@@ -1,9 +1,14 @@
 package org.jono;
 
-// Target hides its true value by exposing a constant mask externally.
+/**
+ * Represents the hidden target word and hides its literal value with a constant mask.
+ */
 public class Target extends Word {
     private final String mask = "*".repeat(super.length());
 
+    /**
+     * @param target raw target word selected from a dictionary
+     */
     public Target(String target) {
         super(target);
     }
@@ -13,9 +18,10 @@ public class Target extends Word {
         return mask;
     }
 
+    /**
+     * Returns the masked representation so logs/UI never leak the real target.
+     */
     @Override public String getValue() {
         return mask;
     }
-
-
 }
