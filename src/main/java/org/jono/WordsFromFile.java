@@ -40,6 +40,7 @@ public class WordsFromFile implements Dictionary {
     private List<String> loadDictionary(Path filePath) {
         final List<String> words;
         try {
+            //TODO: Load words from a classpath using InputStream as Files.readAllLines(Path) only works with real filesystem paths (not packaged content)
             var rawData = Files.readAllLines(filePath, StandardCharsets.UTF_8);
             words = rawData.stream()
                     .map(String::trim)
