@@ -54,4 +54,4 @@ Open `target/site/apidocs/index.html` in any browser to browse the rendered docu
 2. Support dependency injection for dictionary sources (e.g., remote APIs).
 3. Track win/loss stats or persist completed games for later analysis.
 
-*README written using Codex.
+*README generated using Codex.
