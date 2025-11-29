@@ -6,10 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-- ✅ What a game *is* (state, guesses, target)
-- ✅ What a game *can do* (accept guesses, track state)
-- ✅ What game *rules are* (can't guess when over, max attempts)
-- ✅ Internal consistency (state transitions)
+ * Encapsulates the mutable state of a single game, including guesses, hints, and lifecycle transitions.
  */
 public class Game {
     private final List<GuessResult> hints;
@@ -24,6 +21,12 @@ public class Game {
         state = GameState.INGAME;
     }
 
+    /**
+     * Records a hint result, updates the state machine, and guards against illegal transitions.
+     *
+     * @param result evaluated hint for the submitted guess
+     * @throws IllegalStateException when invoked after the game has already ended
+     */
     public void recordGuess(GuessResult result) {
         if (isGameOver())
             throw new IllegalStateException("Game is over");
@@ -37,6 +40,13 @@ public class Game {
             state = GameState.LOST;
     }
 
+    /**
+     * Returns the hint for a specific guess, preserving immutability of internal collections.
+     *
+     * @param wordIndex zero-based index of the guess
+     * @return immutable list of {@link LetterHint}
+     * @throws IllegalArgumentException if the index is invalid
+     */
     public List<LetterHint> getHintByIndex(int wordIndex) {
         if (wordIndex >= guesses.size() || wordIndex < 0)
             throw new IllegalArgumentException("Invalid word index");
@@ -48,18 +58,30 @@ public class Game {
         return target;
     }
 
+    /**
+     * @return true when the game has reached a win or loss state
+     */
     public boolean isGameOver() {
         return state != GameState.INGAME;
     }
 
+    /**
+     * @return immutable snapshot of the guessed words (legacy alias for {@link #getGuesses()})
+     */
     public List<Word> getHints() {
         return List.copyOf(guesses);
     }
 
+    /**
+     * @return immutable snapshot of all guesses in submission order
+     */
     public List<Word> getGuesses() {
         return List.copyOf(guesses);
     }
 
+    /**
+     * @return immutable snapshot of the current game state
+     */
     public GameState getState() {
         return state;
     }
