@@ -1,9 +1,9 @@
-package org.jono;
+package org.word.word;
 
 /**
  * Possible per-letter outcomes when comparing a guess to the target.
  */
-public enum Eval {
+public enum LetterHint {
     /** Letter is in the correct position. */
     CORRECT,
     /** Letter exists in the target but is misplaced or already satisfied elsewhere. */
