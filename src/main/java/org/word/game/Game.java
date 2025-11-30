@@ -65,11 +65,10 @@ public class Game {
         return state != GameState.INGAME;
     }
 
-    /**
-     * @return immutable snapshot of the guessed words (legacy alias for {@link #getGuesses()})
-     */
-    public List<Word> getHints() {
-        return List.copyOf(guesses);
+    public List<LetterHint> getHints() {
+        return hints.stream()
+                .flatMap(h -> h.hint().stream())
+                .toList();
     }
 
     /**

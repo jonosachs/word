@@ -2,13 +2,12 @@ package org.word.dictionary;
 
 import org.word.word.Word;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class DictionaryFromList implements Dictionary {
+public class FruitDictionary implements Dictionary {
     List<Word> allWords;
 
-    public DictionaryFromList() {
+    public FruitDictionary() {
         allWords = List.of(
                 new Word("apple"),
                 new Word("melon"),

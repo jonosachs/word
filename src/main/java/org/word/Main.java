@@ -2,7 +2,7 @@ package org.word;
 
 import org.word.config.GameFactory;
 import org.word.dictionary.Dictionary;
-import org.word.dictionary.DictionaryFromList;
+import org.word.dictionary.FruitDictionary;
 import org.word.ui.ConsoleGameUI;
 import org.word.ui.GameController;
 import org.word.ui.GameUI;
@@ -13,7 +13,7 @@ import org.word.word.WordSelector;
 
 public class Main {
     public static void main(String[] args) {
-        Dictionary dict = new DictionaryFromList();
+        Dictionary dict = new FruitDictionary();
         WordSelector ws = new RandomWordSelector();
         HintCalculator hc = new StandardHintCalculator();
         GameFactory gf = new GameFactory(dict, hc, ws);

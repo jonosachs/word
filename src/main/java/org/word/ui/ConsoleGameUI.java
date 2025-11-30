@@ -1,6 +1,5 @@
 package org.word.ui;
 
-import org.word.game.Game;
 import org.word.game.GameState;
 import org.word.word.LetterHint;
 import org.word.word.Word;
@@ -23,8 +22,8 @@ public class ConsoleGameUI implements GameUI {
     }
 
     @Override
-    public void displayHint(List<LetterHint> hint) {
-        System.out.println(hint.toString());
+    public void displayHints(List<LetterHint> hints) {
+        System.out.println(hints.toString());
     }
 
     @Override

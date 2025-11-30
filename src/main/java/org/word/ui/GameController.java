@@ -35,6 +35,6 @@ public class GameController {
     private void playTurn(Game game, GameEngine engine) {
        Word guess = gameUI.getGuessFromUser();
        GuessResult result = engine.evaluateGuess(game, guess);
-       gameUI.displayHint(result.hint());
+       gameUI.displayHints(result.hint());
     }
 }

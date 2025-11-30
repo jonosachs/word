@@ -7,10 +7,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-public class DictionaryFromFile implements Dictionary {
+public class FileDictionary implements Dictionary {
     private final List<Word> allWords;
 
-    public DictionaryFromFile(String filePath) {
+    public FileDictionary(String filePath) {
         this.allWords = loadAndNormalise(filePath);
     }
 
