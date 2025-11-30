@@ -12,7 +12,9 @@ class RandomWordSelectorTest {
 
     @Test
     void getsRandomWord() {
+        //seed 1L always returns 0
         RandomWordSelector rws = new RandomWordSelector(new Random(1L));
+
         FruitDictionary dict = new FruitDictionary();
         List<Word> words = dict.getAllValidWords();
 

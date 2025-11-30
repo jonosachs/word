@@ -47,7 +47,12 @@ Extending the Playground
 
 Testing
 -------
-JUnit 5 and Mockito are configured in `pom.xml`. Place unit tests under `src/test/java` and execute them with:
+JUnit 5 and Mockito are configured in `pom.xml`. Core tests currently live under `src/test/java`:
+- `org.word.game.GameTest` verifies state transitions such as winning after a correct guess and losing after exhausting attempts.
+- `org.word.dictionary.DictionaryFromListTest` covers dictionary validation behavior.
+- `org.word.word.StandardHintCalculatorTest` exercises the hint-calculation pipeline.
+
+Execute the suite with:
 ```
 mvn test
 ```
